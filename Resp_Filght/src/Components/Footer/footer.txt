@@ -1,0 +1,109 @@
+import React from 'react'
+import "./Footer.css"
+export default function Footer() {
+  return (
+    <div className='footer'>
+        <div className='top'>
+            <div class='left-tit'>
+                <h1>WanderLust!</h1>
+                <p>Look Now & Book Now</p>
+            </div>
+            <div>
+                <a href='/'>
+                    <i className='fa-brands fa-facebook-square'></i>
+                </a>
+                <a href='/'>
+                    <i className='fa-brands fa-instagram-square'></i>
+                </a>
+                <a href='/'>
+                    <i className='fa-brands fa-twitter-square'></i>
+                </a>
+                <a href='/'>
+                    <i className='fa-brands fa-git-square'></i>
+                </a>
+            </div>
+        </div>
+    <div className='bottom'>
+        <div>
+            <h4>Community</h4>
+            <a href="/">GitHub</a>
+            <a href="/">Issues</a>
+            <a href="/">Project</a>
+            <a href="/">Twitter</a>
+        </div>
+        <div>
+            <h4>HELP</h4>
+            <a href="/">Support</a>
+            <a href="/">Troubleshoot</a>
+            <a href="/">Contact Us</a>
+        </div>
+        
+    </div>
+    </div>
+  )
+}
+
+css
+
+.footer{
+    padding: 4rem 6rem;
+    background-color: brown;
+    color: white;
+}
+.top{
+    display: flex;
+    align-items: center;
+    text-align: start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.top i{
+    color: white;
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+.top i:hover{
+    color: aqua;
+}
+
+.bottom{
+    padding-top: 2rem;
+    text-align: start;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.bottom div{
+    display: flex;
+    flex-direction: column;
+}
+.bottom h4{
+    font-size: 1.3rem;
+    padding: 1rem 0 0.8rem 0;
+
+}
+.left-tit{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+    font-style:oblique;
+}
+.bottom a{
+    text-decoration: none;
+    color: white;
+    padding-bottom: 0.4rem;
+    font-size: 1.1rem;
+}
+
+@media screen and (max-width: 850px){
+    .footer{
+        padding: 4rem 2rem;
+    }
+    .footer i{
+        margin: 1rem 1rem 0 0;
+    }
+    .bottom div{
+        width: 50%;
+    }
+}

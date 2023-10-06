@@ -1,0 +1,176 @@
+import React, { useState } from 'react';
+import '../NavBar/00NavbarStyles.css';
+import { Link } from 'react-router-dom';
+import { Menuitems } from '../Menuitems/02Menuitems';
+
+const NavbarLanding = (props) => {
+  const [clicked, setClicked] = useState(false);
+  const [showProfileCard, setShowProfileCard] = useState(false);
+
+  const name = props.props.name;
+  const email = props.props.email;
+  const age = props.props.age;
+  const address = props.props.address;
+
+  const handleClick = () => {
+    setClicked(!clicked);
+  };
+
+  const handleProfileClick = () => {
+    setShowProfileCard(!showProfileCard);
+  };
+
+  return (
+    <div>
+      <nav className="NavbarItems">
+        <h1>
+          <Link to="/" className="navbar-logo">
+            WanderLust!
+          </Link>
+        </h1>
+
+        <div className="menu-icons" onClick={handleClick}>
+          <i className={clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
+        </div>
+
+        <ul className={clicked ? 'nav-menu active' : 'nav-menu'}>
+          {Menuitems.map((item, index) => (
+            <li key={index}>
+              <Link className={item.cName} to={item.url}>
+                <i className={item.icon}></i>
+                {item.title}
+              </Link>
+            </li>
+          ))}
+
+          {/* Profile option */}
+          <li>
+            <button className="nav-links" onClick={handleProfileClick}>
+              <i className="fas fa-user"></i>Profile
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      {/* Profile card */}
+      {showProfileCard && (
+        <div className="profile-card">
+          <p>Name: {name}</p>
+          <p>Email: {email}</p>
+          <p>Age: {age}</p>
+          <p>Address: {address}</p>
+          <button onClick={handleProfileClick}>Close</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default NavbarLanding;
+
+css
+
+/* 00NavbarStyles.css */
+
+/* Navbar styling */
+.NavbarItems {
+    background-color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+  
+  .navbar-logo {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5rem;
+  }
+  
+  .nav-menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-right: -24px;
+  }
+  
+  .nav-links {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  /* Profile card styling */
+  .profile-card {
+    position: absolute;
+    top: 70px; /* Adjust the distance from the top as needed */
+    right: 20px; /* Adjust the distance from the right as needed */
+    background-color: #fff;
+    padding: 1rem;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1000;
+  }
+  
+  .profile-card p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+  }
+  
+  .profile-card button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  /* Mobile menu icon styling */
+  .menu-icons {
+    display: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  /* Media query for mobile menu */
+  @media screen and (max-width: 768px) {
+    .nav-menu {
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      right: -100%;
+      width: 100%;
+      background-color: #333;
+      transition: all 0.5s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .nav-menu.active {
+      right: 0;
+    }
+  
+    .menu-icons {
+      display: block;
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+  
+    .nav-links {
+      text-align: center;
+      width: 100%;
+      padding: 1rem;
+      margin: 0;
+    }
+  }
+  

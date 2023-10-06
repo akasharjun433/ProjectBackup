@@ -1,0 +1,280 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './FlightSearch.css';
+
+const FlightSearch = () => {
+  const [flights, setFlights] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [airports, setAirports] = useState([]); // State for storing airport data
+  const [filteredFlights, setFilteredFlights] = useState([]); // State for filtered flights
+  const [filteredAirports, setFilteredAirports] = useState([]); // State for filtered airports
+
+  useEffect(() => {
+    const fetchAirports = async () => {
+      try {
+        const response = await axios.get(
+          'https://travel-advisor.p.rapidapi.com/airports/search',
+          {
+            params: {
+              query: 'all',
+              locale: 'en_US',
+            },
+            headers: {
+              'X-RapidAPI-Key':
+                '82b2fd459bmsh611bbd4f760973fp1a3dbdjsnd4e23679eaca',
+              'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
+            },
+          }
+        );
+        setAirports(response.data); 
+        setLoading(false); // Set loading to false when data is fetched
+      } catch (error) {
+        console.error('Error fetching airport data: ', error);
+        setLoading(false); // Set loading to false in case of an error
+      }
+    };
+
+    fetchAirports();
+  }, []);
+
+  useEffect(() => {
+    setFilteredAirports(airports);
+  }, [airports]);
+
+  // Handle filtering flights based on search criteria
+  const handleSearch = () => {
+    const searchText = searchQuery.toLowerCase();
+
+    // Filter flights based on search criteria
+    const filtered = flights.filter((flight) => {
+      return (
+        flight.flight_date.includes(searchText) ||
+        airports.some((airport) =>
+          airport.name.toLowerCase().includes(searchText)
+        ) ||
+        flight.airline.name.toLowerCase().includes(searchText) ||
+        flight.flight.number.toLowerCase().includes(searchText)
+      );
+    });
+
+    // Filter airports based on search criteria
+    const filteredAirportData = airports.filter((airport) =>
+      airport.name.toLowerCase().includes(searchText)
+    );
+
+    setFilteredFlights(filtered);
+    setFilteredAirports(filteredAirportData);
+  };
+
+  // Render flight cards based on filtered data
+  const flightCards = filteredFlights.slice(0, 20).map((flight, index) => (
+    <div className="flight-card" key={index}>
+      <h3>Flight {flight.flight.number}</h3>
+      <p>Date: {flight.flight_date}</p>
+      <p>Departure Airport: {flight.departure.airport}</p>
+      <p>Arrival Airport: {flight.arrival.airport}</p>
+      <p>Airline: {flight.airline.name}</p>
+    </div>
+  ));
+
+  // Render airport cards based on filtered data
+  const airportCards = filteredAirports.map((airport, index) => (
+    <div className="airport-card" key={index}>
+       {/* {console.log(filteredAirports[0].name)} */}
+      <h3>{airport.name}</h3>
+      <p>Code: {airport.code}</p>
+      <p>City: {airport.city_name}</p>
+      <p>State: {airport.state}</p>
+      <p>Country Code: {airport.country_code}</p>
+    </div>
+  ));
+
+  return (
+    <div className="flight-search">
+      <h1>Flight Search</h1>
+      <div className="search-input">
+        <input
+          type="text"
+          placeholder="Search flights by date, airport, airline, or flight number"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
+      {loading ? (
+        <button disabled>Loading...</button>
+      ) : (
+        <div>
+          <h2>Flights</h2>
+          {/* {console.log(filteredAirports)} */}
+          <div className="flight-list">{flightCards}</div>
+          <h2>Airports</h2>
+          <div className="airport-list">{airportCards}</div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default FlightSearch;
+
+----------------------
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Fuse from 'fuse.js';
+import './FlightSearch.css';
+
+const FlightSearch = () => {
+  const [flights, setFlights] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [filteredFlights, setFilteredFlights] = useState([]);
+
+  useEffect(() => {
+    const fetchFlights = async () => 
+    {
+      try {
+        const response = await axios.get(
+          'https://flight-radar1.p.rapidapi.com/flights/list-most-tracked',
+          {
+            headers: {
+              'X-RapidAPI-Key': '82b2fd459bmsh611bbd4f760973fp1a3dbdjsnd4e23679eaca',
+              'X-RapidAPI-Host': 'flight-radar1.p.rapidapi.com',
+            },
+          }
+        );
+        setFlights(response.data.data);
+        setFilteredFlights(response.data.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching airport data: ', error);
+        setLoading(false);
+      }
+    };
+
+    fetchFlights();
+  }, []);
+
+  const fuseOptions = {
+    keys: ['model'],
+    threshold: 0.3,
+  };
+
+  const fuse = new Fuse(flights, fuseOptions);
+
+  const handleSearch = () => {
+    const searchText = searchQuery.toLowerCase();
+
+    if (searchText.trim() === '') {
+      setFilteredFlights(flights);
+    } else {
+      const searchResults = fuse.search(searchText);
+      const matchingFlights = searchResults.map((result) => result.item);
+
+      setFilteredFlights(matchingFlights);
+    }
+  };
+
+  const flightCards = filteredFlights.map((flight, index) => (
+    <div className="flight-card" key={index}>
+      <h3>Flight {flight.model}</h3>
+      <p>Departure Airport: {flight.from_city}</p>
+      <p>Arrival Airport: {flight.to_city}</p>
+      <p>Airline: {flight.type}</p>
+    </div>
+  ));
+
+  return (
+    <div className="flight-search">
+      <h1 className="center-text">Flight Search</h1>
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search flights by flight name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
+      {loading ? (
+        <button disabled>Loading...</button>
+      ) : (
+        <div className="flight-info">
+          <h2>Flights</h2><br/>
+          <div className="card-container2">{flightCards}</div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default FlightSearch;
+
+
+css
+
+/* FlightSearch.css */
+.flight-search {
+  background-image: url('src\img\f2.jpg');
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-variant: small-caps;
+  gap: 20px; /* Adjust the gap between elements */
+}
+
+.center-text {
+  text-align: center;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Adjust the gap between input and button */
+}
+
+.card-container2 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.flight-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(5, 112, 253, 0.329);
+  padding: 20px;
+  width: calc(20% - 20px);
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.flight-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.flight-card p {
+  font-size: 14px;
+  margin: 5px 0;
+  color: #012b52;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .card-container2 {
+    flex-direction: column; /* Change to a single column layout */
+  }
+
+  .flight-card,
+  .airport-card {
+    width: 100%; /* Full width for single column */
+  }
+}
+

@@ -1,0 +1,59 @@
+/* Style for the "About Us" section */
+  .about-us-content {
+    background-color: #f8f8f8;
+    padding: 40px 0;
+  }
+  title{
+    color: black;
+  }
+  .about-us-content h2 {
+    font-size: 36px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .about-us-content p {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 30px;
+  }
+  
+  /* Style for the "About" page's hero image */
+  .hero-mid {
+  
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 100px 0;
+  }
+  
+  .hero-mid h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  
+  /* Style for the footer (you can adjust this to match your existing footer style) */
+  footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  /* Navbar styles (you can adjust this to match your existing navbar style) */
+  /* .navbar styles go here */
+  
+  /* Additional global styles go here */
+  
+  /* Media queries for responsive design (adjust as needed) */
+  @media screen and (max-width: 768px) {
+    .hero-mid {
+      padding: 80px 0;
+    }
+  }
+  

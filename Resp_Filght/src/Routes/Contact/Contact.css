@@ -1,0 +1,45 @@
+/* Contact.css */
+
+/* Contact Information section */
+.contact-info {
+    background-color: #f8f8f8;
+    padding: 3% 90px;
+  }
+  
+  .contact-info p {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 30px;
+  }
+  
+  .contact-info ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .contact-info ul li {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .social-icons {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .social-icons a {
+    margin-right: 20px;
+    font-size: 24px;
+    color: #3498db;
+    text-decoration: none;
+  }
+  
+
+ 
+  
+
+  

@@ -1,0 +1,87 @@
+/* Styles for the "Destination" component */
+.destination {
+  margin: 4rem 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.destination h1 {
+  font-size: 3rem;
+}
+
+.destination p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+/* Styles for the description and image containers */
+.destination-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4rem;
+  width: 100%;
+}
+
+.description {
+  width: 100%;
+  text-align: start;
+  font-family: 'Courier New', Courier, monospace, sans-serif;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.description h2 {
+  padding-bottom: 1rem;
+}
+
+.image {
+  margin-left: 5%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Styles for individual images */
+.image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: -1px 1px 62px -18px rgba(0, 0, 0, 0.19);
+  margin-bottom: 1rem;
+}
+
+/* Specify a fixed height for the first image */
+.image img:first-child {
+  height: 400px;
+  /* Adjust the height as needed */
+}
+
+@media screen and (min-width: 850px) {
+
+  /* Adjust layout when the screen width is greater than 850px */
+  .destination-content {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .description {
+    width: 50%;
+    text-align: start;
+  }
+
+  .image {
+    width: 50%;
+  }
+
+  /* Adjust styles for individual images as needed */
+  .image img {
+    max-width: 100%;
+  }
+}

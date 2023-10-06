@@ -1,0 +1,114 @@
+/* Add this CSS to your Signup.css or create a new CSS file */
+
+/* Card container styles */
+.fieldW{
+  width: 250px;
+}
+.age1{
+  width: 76px;
+  margin-right: 5px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('C:\Users\Akash A\Resp_Filght\src\img\f3.jpg'); /* Add your blurred background image */
+  background-size: cover;
+  transition: background-image 0.3s ease-in-out; /* Adjust the blur amount as needed */
+}
+
+/* Card styles */
+.card {
+  background: linear-gradient(to bottom right, #3498db, #130301);
+  border-radius: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Improved box shadow */
+  padding: 20px;
+  text-align: center;
+  max-width: 400px; /* Adjust card width for larger screens */
+  width: 60%; /* Adjust card width for small screens */
+}
+
+/* Welcome text style */
+.welcome-text {
+  color: #fff;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Input field styles */
+.formGroup {
+ 
+  justify-content: space-between; /* Create a two-column layout */
+  gap: 15px; /* Add spacing between input field pairs */
+  margin-bottom: 10px;
+
+}
+
+/* Input text style */
+.formGroup input {
+   /* Expand input fields to fill available space in the column */
+  background: none;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 16px; /* Adjust input text size */
+  border-radius: 5px;
+  background-color: rgba(255, 253, 253, 0.999); /* Semi-transparent background */
+  backdrop-filter: blur(5px); /* Apply blur to input background */
+  color: black;
+}
+.toggle-section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 23px;
+}
+
+/* Select input style */
+.formGroup select {
+  flex: 1; /* Expand select field to fill available space in the column */
+  background: none;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 14px; /* Adjust input text size */
+  border-radius: 5px;
+  background-color: rgba(255, 253, 253, 0.999); /* Semi-transparent background */
+  backdrop-filter: blur(5px); /* Apply blur to input background */
+  color: #757575;
+  cursor: pointer; /* Add cursor pointer for select input */
+}
+
+/* Button styles */
+.login-button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+  padding: 12px 24px; /* Adjust button padding */
+  font-size: 18px; /* Adjust button font size */
+  cursor: pointer;
+  margin-top: 15px; /* Add margin to separate button from input fields */
+}
+
+/* Toggle text style */
+.toggle-text {
+  color: #fff;
+  font-size: 16px; /* Adjust toggle text size */
+  margin-right: 10px;
+}
+
+/* Add your other styles as needed */
+
+/* Responsive styles for small screens */
+@media (max-width: 768px) {
+  .card {
+    max-width: 90%; /* Limit card width for small screens */
+  }
+
+  .login-button {
+    margin-top: 20px; /* Increase margin for button */
+  }
+}
